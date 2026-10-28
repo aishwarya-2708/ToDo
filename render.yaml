@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: taskmate-demo
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm ci --prefix server && npm ci --prefix client && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: SESSION_NAME
+        value: taskmate.sid
+      - key: SESSION_DAYS
+        value: "7"
+      - key: MONGODB_URI
+        sync: false
